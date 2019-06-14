@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import random
+from logic.card import Card
+from logic.deck import Deck
 
 from django.shortcuts import render
 
@@ -11,4 +13,9 @@ def index(req):
 
 def lobby(req):
 	r = random.randint(0,100)
-	return render(req, "poker/lobby.html", {"rand":r})
+	d = {}
+	d["rand"] = r
+	deck = Deck()
+	d["p1_cards"] = deck.get_cards(2)
+	d["p2_cards"] = deck.get_cards(2)
+	return render(req, "poker/lobby.html", d)
